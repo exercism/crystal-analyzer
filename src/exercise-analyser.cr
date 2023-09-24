@@ -1,5 +1,4 @@
 require "compiler/crystal/syntax"
-require "./exercises/*"
 require "./analyzer"
 require "./visitor_analyzer"
 
@@ -9,6 +8,7 @@ class ExerciseAnayzer
 
   @comments = Array(Comments).new
   @anlyzation : Array(Types)
+  @concepts : Array(String)
 
   def initialize(exercise : String, path : String)
     file_content = File.read(path)
@@ -29,23 +29,26 @@ class ExerciseAnayzer
       end
     when "two-fer"
       if anlyzation.none? { |x| x.options["name"] == "you" && x.options["type"] == "Arg" && x.inside_method == "two_fer" }
-        @comments << Comments.new("crystal.two-fer.no_def_arg", Hash(String, String | Int32).new, "warrning")
+        @comments << Comments.new("crystal.two-fer.incorrect_default_param", Hash(String, String | Int32).new, "actionable")
       end
       if anlyzation.any? { |x| x.options["name"] == "+" && x.options["type"] == "Call" && x.inside_method == "two_fer" }
-        @comments << Comments.new("rystal.two-fer.string_format", Hash(String, String | Int32).new, "warrning")
+        @comments << Comments.new("rystal.two-fer.string_concatenation", Hash(String, String | Int32).new, "actionable")
       end
     when "arys-amazing-lasagna"
       if anlyzation.none? { |x| x.options["name"] == "preparation_time_in_minutes" && x.options["type"] == "Call" && x.inside_method == "total_time_in_minutes" }
-        @comments << Comments.new("crystal.arys-amazing-lasagna.no-call", Hash(String, String | Int32).new, "warrning")
+        @comments << Comments.new("crystal.arys-amazing-lasagna.reuse_function", Hash(String, String | Int32).new, "actionable")
       end
       if anlyzation.none? { |x| x.options["name"] == "EXPECTED_MINUTES_IN_OVEN" && x.options["name"] == "Assign" && x.inside_method == "remaining_minutes_in_oven" }
-        @comments << Comments.new("crystal.arys-amazing-lasagna.no-constant", Hash(String, String | Int32).new, "warrning")
+        @comments << Comments.new("crystal.arys-amazing-lasagna.reuse_constant", Hash(String, String | Int32).new, "actionable")
       end
     when "navigation-computer"
       if anlyzation.any? do |x|
-           {"NEPTUNE_DISTANCE", "MARS_DISTANCE", "ATMOSPHERE_DISTANCE"}.includes?(x.options["name"]) && x.options["type"] == "Assign" && x.options["value"].includes?("to_i")
+           temp = x.options["value"]
+           unless temp.nil?
+             {"NEPTUNE_DISTANCE", "MARS_DISTANCE", "ATMOSPHERE_DISTANCE"}.includes?(x.options["name"]) && x.options["type"] == "Assign" && temp.includes?("to_i")
+           end
          end
-        @comments << Comments.new("crystal.navigation-computer.no-to_i", Hash(String, String | Int32).new, "warrning")
+        @comments << Comments.new("crystal.navigation-computer.to_i", Hash(String, String | Int32).new, "actionable")
       end
     end
   end

@@ -39,14 +39,13 @@ class Analyzer
   def load_result(path : String)
     JSON.parse(File.read(path))["sources"].as_a.each do |value|
       value["issues"].as_a.each do |line|
-        if line["message"].to_s == ""
         case line["severity"]
         when "Error"
-          result << Comments.new("crystal.ameba.error", {"message" => line["message"].to_s, "line_number" => line["location"]["line"].as_i}, "error")
+          result << Comments.new("crystal.ameba.error", {"message" => line["message"].to_s, "line_number" => line["location"]["line"].as_i}, "essential")
         when "Warning"
-          result << Comments.new("crystal.ameba.warning", {"message" => line["message"].to_s, "line_number" => line["location"]["line"].as_i}, "warning")
+          result << Comments.new("crystal.ameba.warning", {"message" => line["message"].to_s, "line_number" => line["location"]["line"].as_i}, "actionable")
         when "Convention"
-          result << Comments.new("crystal.ameba.convention", {"message" => line["message"].to_s, "line_number" => line["location"]["line"].as_i}, "convention")
+          result << Comments.new("crystal.ameba.convention", {"message" => line["message"].to_s, "line_number" => line["location"]["line"].as_i}, "informative")
         end
       end
     end
