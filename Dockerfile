@@ -4,6 +4,7 @@ FROM crystallang/crystal:1.9.2-alpine as Builder
 COPY . .
 
 RUN apk add --no-cache bash coreutils
+RUN shards install
 
 RUN ./bin/build.sh
 
