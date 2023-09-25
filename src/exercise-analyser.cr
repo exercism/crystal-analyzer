@@ -7,17 +7,21 @@ class ExerciseAnayzer
   property comments, concepts
 
   @comments = Array(Comments).new
-  @anlyzation : Array(Types)
-  @concepts : Array(String)
+  @anlyzation : Array(Types) = Array(Types).new
+  @concepts : Array(String) = Array(String).new
 
   def initialize(exercise : String, path : String)
     file_content = File.read(path)
-    solution = Crystal::Parser.new(file_content)
-    ast = solution.parse
-    analyser = GeneralAnalyzer.new
-    analyser.accept(ast)
-    @anlyzation = analyser.types
-    @concepts = analyser.concepts # Adding the possibilty of marking an exercise as having a certain concept
+    begin
+      solution = Crystal::Parser.new(file_content)
+      ast = solution.parse
+      analyser = GeneralAnalyzer.new
+      analyser.accept(ast)
+      @anlyzation = analyser.types
+      @concepts = analyser.concepts # Adding the possibilty of marking an exercise as having a certain concept
+    rescue
+      p "Error parsing the file"
+    end
     @exercise = exercise
   end
 

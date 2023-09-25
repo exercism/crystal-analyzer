@@ -14,7 +14,6 @@ class Types
 end
 
 class GeneralAnalyzer < Crystal::Visitor
-
   @types = Array(Types).new
   @concepts = [] of String
   @inside_class : String? = nil
@@ -55,7 +54,7 @@ class GeneralAnalyzer < Crystal::Visitor
       argumment = Hash(String, String?).new
       argumment.merge({"name" => arg.name.to_s, "type" => "Arg", "default_argument" => arg.default_value ? arg.default_value.to_s : nil})
       argumment
-    end 
+    end
     types << Types.new(options, argumments, @inside_method, @inside_class, @inside_struct, @inside_enum, @inside_module)
     concepts << "oop" if node.name.to_s == "initialize"
     @inside_method = node.name.to_s

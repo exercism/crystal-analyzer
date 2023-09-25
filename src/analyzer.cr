@@ -66,5 +66,5 @@ if ARGV.size >= 1
   anylyser.analyze(ARGV[3], ARGV[2])
   result = anylyser.result
 
-  File.write(ARGV[1], Analysis.new("test", result).to_json)
+  File.write(ARGV[1], Analysis.new(nil, result).to_json)
 end
