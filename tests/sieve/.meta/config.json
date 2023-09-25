@@ -1,7 +1,7 @@
 {
     "files": {
         "solution": [
-            "src/leap.cr"
+            "src/sieve.cr"
         ]
     }
 }
