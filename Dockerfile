@@ -1,11 +1,14 @@
 FROM crystallang/crystal:1.9.2-alpine as Builder
 
 # install packages required to run the representer
-COPY . .
+RUN apk add --no-cache bash coreutils shards yaml-dev musl-dev make
+
+# install packages required to run the representer
+COPY shard.lock shard.yml ./
 
 RUN shards install
 
-RUN apk add --no-cache bash coreutils shards yaml-dev musl-dev make
+COPY . .
 
 RUN ./bin/build.sh
 

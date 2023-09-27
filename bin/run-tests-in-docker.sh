@@ -16,7 +16,7 @@
 set -e
 
 # Build the Docker image
-docker build --rm -t exercism/analyzer .
+docker build --rm -t exercism/crystal-analyzer .
 
 # Run the Docker image using the settings mimicking the production environment
 docker run \
@@ -28,4 +28,4 @@ docker run \
     --volume "${PWD}/bin/run-tests.sh:/opt/analyzer/bin/run-tests.sh" \
     --workdir /opt/analyzer \
     --entrypoint /opt/analyzer/bin/run-tests.sh \
-    exercism/analyzer
+    exercism/crystal-analyzer
