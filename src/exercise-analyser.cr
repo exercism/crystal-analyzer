@@ -40,10 +40,18 @@ class ExerciseAnayzer
       end
     when "arys-amazing-lasagna"
       if anlyzation.none? { |x| x.options["name"] == "preparation_time_in_minutes" && x.options["type"] == "Call" && x.inside_method == "total_time_in_minutes" }
-        @comments << Comments.new("crystal.arys-amazing-lasagna.reuse_function", Hash(String, String | Int32).new, "actionable")
+        options = Hash(String, String | Int32).new
+        options["concept"] = "function"
+        options["item_1"] = "Lasagna.preparation_time_in_minutes"
+        options["item_2"] = "Lasagna.total_time_in_minutes"
+        @comments << Comments.new("crystal.general.reuse", options, "actionable")
       end
       if anlyzation.none? { |x| x.options["name"] == "EXPECTED_MINUTES_IN_OVEN" && x.options["name"] == "Assign" && x.inside_method == "remaining_minutes_in_oven" }
-        @comments << Comments.new("crystal.arys-amazing-lasagna.reuse_constant", Hash(String, String | Int32).new, "actionable")
+        options = Hash(String, String | Int32).new
+        options["concept"] = "constant"
+        options["item_1"] = "Lasagna.remaining_minutes_in_oven"
+        options["item_2"] = "Lasagna::EXPECTED_MINUTES_IN_OVEN"
+        @comments << Comments.new("crystal.general.reuse", options, "actionable")
       end
     when "navigation-computer"
       if anlyzation.any? do |x|
