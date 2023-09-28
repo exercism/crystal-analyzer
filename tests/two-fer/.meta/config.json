@@ -1,0 +1,7 @@
+{
+    "files": {
+        "solution": [
+            "src/two_fer.cr"
+        ]
+    }
+}

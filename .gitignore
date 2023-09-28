@@ -1,0 +1,5 @@
+lib
+tests/*/analysis.json
+bin/analyzer
+bin/ameba
+tests/*/output.json
