@@ -28,11 +28,12 @@ output_dir="${3%/}"
 solution_file="${input_dir}/$(jq -r '.files.solution[0]' ${input_dir}/.meta/config.json)"
 json_file="${output_dir}/output.json"
 results_file="${output_dir}/analysis.json"
+exemplar_file="${input_dir}/.meta/exemplar.json"
 
 ./bin/ameba "${solution_file}" --format json &> "${json_file}"
 
 echo "${json_file}"
 
-./bin/analyzer "${json_file}" "${results_file}" "${solution_file}" "${slug}"
+./bin/analyzer "${json_file}" "${results_file}" "${solution_file}" "${slug}" "${exemplar_file}"
 
 echo "${slug}: done"
