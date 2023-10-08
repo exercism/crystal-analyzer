@@ -62,6 +62,14 @@ class ExerciseAnayzer
          end
         @comments << Comments.new("crystal.navigation-computer.to_i", Hash(String, String | Int32).new, "actionable")
       end
+    when "crystal-hunter"
+      if anlyzation.any? { |x| x.options["type"] == "Call" && x.options["name"] == "==" && x.argumments.any? {|x| x["name"] == "true" || x["name"] == "false" } }
+        @comments << Comments.new("crystal.crystal-hunter.true_false", Hash(String, String | Int32).new, "actionable")
+      end
+    when "leap"
+      if anlyzation.any? { |x| x.options["type"] == "If" }
+        @comments << Comments.new("crystal.leap.if", Hash(String, String | Int32).new, "actionable")
+      end
     end
   end
 end

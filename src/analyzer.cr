@@ -1,5 +1,5 @@
 require "json"
-require "representer"
+require "representer/api"
 require "./exercise-analyser"
 
 class Analysis
@@ -66,7 +66,7 @@ class Analyzer
   end
 
   private def exemplar? : Bool
-    if File.exsist?(ARGV[4])
+    if File.exists?(ARGV[4])
       representer1 = Representer.new
       representer2 = Representer.new
 
