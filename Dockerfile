@@ -1,4 +1,4 @@
-FROM crystallang/crystal:1.9.2-alpine as Builder
+FROM crystallang/crystal:1.10.1-alpine as Builder
 
 # install packages required to run the representer
 RUN apk add --no-cache bash coreutils shards yaml-dev musl-dev make

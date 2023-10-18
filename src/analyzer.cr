@@ -57,11 +57,24 @@ class Analyzer
     exericse_analyzer.exercise_tags
     @result += exericse_analyzer.comments
     exemplar_comment
+    todo_comment(path)
   end
 
   def exemplar_comment
     if exemplar?
       @result << Comments.new("crystal.general.same_as_exemplar",  Hash(String, String | Int32).new, "informative")
+    end
+  end
+
+  def todo_comment(path)
+    file_content = File.read(path)
+    file_content.each_line.with_index do |line, idx|
+      if line.includes?("# TODO:")
+        options = Hash(String, String | Int32){
+          "line_number" => idx}
+        @result << Comments.new("crystal.general.todo",  options, "informative")
+        break
+      end
     end
   end
 

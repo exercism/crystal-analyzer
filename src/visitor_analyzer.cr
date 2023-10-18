@@ -60,9 +60,7 @@ class GeneralAnalyzer < Crystal::Visitor
   end
 
   def visit(node : Crystal::Call)
-    p node.args
-    options = Hash(String, String?).new
-    options.merge!({"name" => node.name.to_s, "type" => "Call", "receiver" => node.obj.to_s})
+    options = Hash(String, String?){"name" => node.name.to_s, "type" => "Call", "receiver" => node.obj.to_s, "raw_value" => node.to_s}
     argumments : Array(Hash(String, String?)) = node.args.map do |arg|
       Hash(String, String?){"name" => arg.to_s, "type" => "Arg"}
     end
@@ -71,13 +69,12 @@ class GeneralAnalyzer < Crystal::Visitor
   end
 
   def visit(node : Crystal::If)
-    options = Hash(String, String?){"name" => node.condition.to_s, "type" => "If"}
+    options = Hash(String, String?){"name" => node.cond.to_s, "type" => "If"}
     types << Types.new(options, Array(Hash(String, String?)).new, @inside_method, @inside_class, @inside_struct, @inside_enum, @inside_module)
     true
   end
 
   def visit(node : Crystal::Assign)
-    p node
     options = Hash(String, String?).new
     options.merge!({"name" => node.target.to_s, "type" => "Assign", "value" => node.value.to_s})
     types << Types.new(options, Array(Hash(String, String?)).new, @inside_method, @inside_class, @inside_struct, @inside_enum, @inside_module)
