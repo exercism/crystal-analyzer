@@ -49,8 +49,7 @@ class GeneralAnalyzer < Crystal::Visitor
 
   def visit(node : Crystal::Def)
     @inside_method = node.name.to_s
-    options = Hash(String, String?).new
-    options.merge!({"name" => node.name.to_s, "type" => "Def"})
+    options = Hash(String, String?){"name" => node.name.to_s, "type" => "Def"}
     argumments : Array(Hash(String, String?)) = node.args.map do |arg|
       Hash(String, String?){"name" => arg.name.to_s, "type" => "Arg", "default_argument" => arg.default_value ? arg.default_value.to_s : nil}
     end

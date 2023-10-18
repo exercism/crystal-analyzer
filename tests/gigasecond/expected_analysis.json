@@ -1,0 +1,1 @@
+{"comments":[{"comment":"crystal.ameba.convention","params":{"message":"Trailing newline missing","line_number":6},"type":"informative"},{"comment":"crystal.ameba.warning","params":{"message":"Useless assignment to variable `time`","line_number":4},"type":"actionable"},{"comment":"crystal.gigasecond.pow","params":{"value":"10 ** 9"},"type":"informative"}]}
