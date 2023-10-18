@@ -3,4 +3,4 @@
 set -euo pipefail
 
 echo "Building analyzer" 
-crystal build src/analyzer.cr -o bin/analyzer # --release
+crystal build src/analyzer.cr --release -o bin/analyzer
