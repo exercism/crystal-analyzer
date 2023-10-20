@@ -49,12 +49,9 @@ class GeneralAnalyzer < Crystal::Visitor
 
   def visit(node : Crystal::Def)
     @inside_method = node.name.to_s
-    options = Hash(String, String?).new
-    options.merge!({"name" => node.name.to_s, "type" => "Def"})
+    options = Hash(String, String?){"name" => node.name.to_s, "type" => "Def"}
     argumments : Array(Hash(String, String?)) = node.args.map do |arg|
-      argumment = Hash(String, String?).new
-      argumment.merge!({"name" => arg.name.to_s, "type" => "Arg", "default_argument" => arg.default_value ? arg.default_value.to_s : nil})
-      argumment
+      Hash(String, String?){"name" => arg.name.to_s, "type" => "Arg", "default_argument" => arg.default_value ? arg.default_value.to_s : nil}
     end
     types << Types.new(options, argumments, @inside_method, @inside_class, @inside_struct, @inside_enum, @inside_module)
     concepts << "oop" if node.name.to_s == "initialize"
@@ -62,19 +59,22 @@ class GeneralAnalyzer < Crystal::Visitor
   end
 
   def visit(node : Crystal::Call)
-    options = Hash(String, String?).new
-    options.merge!({"name" => node.name.to_s, "type" => "Call", "receiver" => node.obj.to_s})
-    argumments = node.args.map do |arg|
-      argumment = Hash(String, String?).new
-      argumment.merge!({"name" => arg.to_s, "type" => "Arg"})
-      argumment
+
+    options = Hash(String, String?){"name" => node.name.to_s, "type" => "Call", "receiver" => node.obj.to_s, "raw_value" => node.to_s}
+    argumments : Array(Hash(String, String?)) = node.args.map do |arg|
+      Hash(String, String?){"name" => arg.to_s, "type" => "Arg"}
     end
     types << Types.new(options, argumments, @inside_method, @inside_class, @inside_struct, @inside_enum, @inside_module)
     true
   end
 
+  def visit(node : Crystal::If)
+    options = Hash(String, String?){"name" => node.cond.to_s, "type" => "If"}
+    types << Types.new(options, Array(Hash(String, String?)).new, @inside_method, @inside_class, @inside_struct, @inside_enum, @inside_module)
+    true
+  end
+
   def visit(node : Crystal::Assign)
-    p node
     options = Hash(String, String?).new
     options.merge!({"name" => node.target.to_s, "type" => "Assign", "value" => node.value.to_s})
     types << Types.new(options, Array(Hash(String, String?)).new, @inside_method, @inside_class, @inside_struct, @inside_enum, @inside_module)

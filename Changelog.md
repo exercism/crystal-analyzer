@@ -1,3 +1,10 @@
+## 1.1.0
+
+- Crystal 1.10 support
+- Exemplar comment
+- TODO comment
+- 5 Custom comments for exercises
+
 ## 1.0.0
 
 - Intial release

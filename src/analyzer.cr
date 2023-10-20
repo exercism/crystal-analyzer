@@ -1,4 +1,5 @@
 require "json"
+require "representer/api"
 require "./exercise-analyser"
 
 class Analysis
@@ -54,13 +55,49 @@ class Analyzer
   def analyze(exercise : String, path : String)
     exericse_analyzer = ExerciseAnayzer.new(exercise, path)
     exericse_analyzer.exercise_tags
-    @result = @result + exericse_analyzer.comments
+    @result += exericse_analyzer.comments
+    exemplar_comment
+    todo_comment(path)
+  end
+
+  def exemplar_comment
+    if exemplar?
+      @result << Comments.new("crystal.general.same_as_exemplar",  Hash(String, String | Int32).new, "informative")
+    end
+  end
+
+  def todo_comment(path)
+    file_content = File.read(path)
+    file_content.each_line.with_index do |line, idx|
+      if line.includes?("# TODO:")
+        options = Hash(String, String | Int32){
+          "line_number" => idx}
+        @result << Comments.new("crystal.general.todo",  options, "informative")
+        break
+      end
+    end
+  end
+
+  private def exemplar? : Bool
+    if File.exists?(ARGV[4])
+      representer1 = Representer.new
+      representer2 = Representer.new
+
+      representer1.parse_file(Path.new(ARGV[2]))
+      representer2.parse_file(Path.new(ARGV[4]))
+
+      representer1.represent
+      representer2.represent
+
+      return representer1.representation == representer2.representation
+    end
+    false
   end
 end
 
 ARGV[0]
 
-if ARGV.size >= 1
+if ARGV.size >= 4
   anylyser = Analyzer.new
   anylyser.load_result(ARGV[0])
   anylyser.analyze(ARGV[3], ARGV[2])

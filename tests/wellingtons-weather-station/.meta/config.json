@@ -1,0 +1,7 @@
+{
+    "files": {
+        "solution": [
+            "src/wellingtons_weather_station.cr"
+        ]
+    }
+}
