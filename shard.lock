@@ -6,5 +6,5 @@ shards:
 
   representer:
     git: https://github.com/exercism/crystal-representer.git
-    version: 1.2.0+git.commit.8de726aa2046240148a854a11f46e6742600a6ec
+    version: 1.2.1
 
