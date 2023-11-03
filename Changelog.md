@@ -1,8 +1,15 @@
+## 1.1.1
+
+- fix exemplar comment
+- Use representer 1.2.1
+- add todo and exemplar tests
+
 ## 1.1.0
 
 - Crystal 1.10 support
 - Exemplar comment
 - TODO comment
+- Use representer 1.2.0
 - 5 Custom comments for exercises
 
 ## 1.0.0

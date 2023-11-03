@@ -61,41 +61,43 @@ class Analyzer
   end
 
   def exemplar_comment
-    if exemplar?
-      @result << Comments.new("crystal.general.same_as_exemplar",  Hash(String, String | Int32).new, "informative")
+    unless ARGV[4].empty?
+      if exemplar?(ARGV[4])
+        @result << Comments.new("crystal.general.same_as_exemplar", Hash(String, String | Int32).new, "celebratory")
+      end
     end
   end
 
   def todo_comment(path)
     file_content = File.read(path)
     file_content.each_line.with_index do |line, idx|
+      p line
       if line.includes?("# TODO:")
         options = Hash(String, String | Int32){
-          "line_number" => idx}
-        @result << Comments.new("crystal.general.todo",  options, "informative")
+          "line_number" => idx,
+        }
+        @result << Comments.new("crystal.general.todo", options, "informative")
         break
       end
     end
   end
 
-  private def exemplar? : Bool
-    if File.exists?(ARGV[4])
-      representer1 = Representer.new
-      representer2 = Representer.new
+  private def exemplar?(exemplar_path : String) : Bool
+    representer1 = Representer.new
+    representer1.parse_file(Path.new(ARGV[2]))
+    representer1.represent
 
-      representer1.parse_file(Path.new(ARGV[2]))
-      representer2.parse_file(Path.new(ARGV[4]))
+    first_representation = representer1.representation
+    representer1.update_data([] of String)
+    representer1.update_counter(0)
 
-      representer1.represent
-      representer2.represent
+    representer2 = Representer.new
+    representer2.parse_file(Path.new(exemplar_path))
+    representer2.represent
 
-      return representer1.representation == representer2.representation
-    end
-    false
+    return first_representation == representer2.representation
   end
 end
-
-ARGV[0]
 
 if ARGV.size >= 4
   anylyser = Analyzer.new
