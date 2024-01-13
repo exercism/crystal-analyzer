@@ -1,3 +1,11 @@
+# 1.2.0
+
+- 4 Custom comments for exercises
+- Several exercises recived comments about reusing functions/constants
+- Crystal 1.11 support
+- Upgraded ambea to 1.6
+- Upgraded representer to 1.3.0
+
 ## 1.1.1
 
 - fix exemplar comment
