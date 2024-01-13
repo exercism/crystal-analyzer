@@ -2,6 +2,6 @@ module ReverseString
   extend self
 
   def reverse(value : String) : String
-    value
+    value.reverse
   end
 end

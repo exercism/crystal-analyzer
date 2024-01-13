@@ -1,1 +1,1 @@
-{"comments":[{"comment":"crystal.general.todo","params":{"line_number":1},"type":"informative"}]}
+{"comments":[{"comment":"crystal.ameba.warning","params":{"message":"Found a TODO admonition in a comment","line_number":2},"type":"actionable"}]}

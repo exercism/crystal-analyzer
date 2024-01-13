@@ -5,6 +5,7 @@
 - Crystal 1.11 support
 - Upgraded ambea to 1.6
 - Upgraded representer to 1.3.0
+- The todo logic has been migrated to use Ambea logic instead of custom logic.
 
 ## 1.1.1
 
