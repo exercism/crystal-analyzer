@@ -72,7 +72,7 @@ class ExerciseAnayzer
         @comments << Comments.new("crystal.leap.do_not_use_if_statement", Hash(String, String | Int32).new, "actionable")
       end
       if anlyzation.any? { |x| x.options["type"] == "Call" && x.options["name"] == "%" }
-        @comments << Comments.new("crystal.leap.modulo", Hash(String, String | Int32).new, "informative")
+        @comments << Comments.new("crystal.leap.use-is-divisable_by", Hash(String, String | Int32).new, "informative")
       end
     when "wellingtons-weather-station"
       if anlyzation.any? { |x| x.options["type"] == "If" && x.inside_method == "number_missing_sensors" }

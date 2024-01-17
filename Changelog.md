@@ -1,3 +1,7 @@
+## 1.1.2
+
+- Fix leap use-is-divisable_by comment
+
 ## 1.1.1
 
 - fix exemplar comment
