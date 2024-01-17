@@ -1,1 +1,1 @@
-{"comments":[{"comment":"crystal.leap.do_not_use_if_statement","params":{},"type":"actionable"},{"comment":"crystal.leap.modulo","params":{},"type":"informative"}]}
+{"comments":[{"comment":"crystal.leap.do_not_use_if_statement","params":{},"type":"actionable"},{"comment":"crystal.leap.use-is-divisable_by","params":{},"type":"informative"}]}
