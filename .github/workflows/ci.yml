@@ -30,7 +30,7 @@ jobs:
           cache-to: type=gha,mode=max
       - name: Run Tests in Docker
         run: bin/run-tests-in-docker.sh
-  generator:
+  verify-templates:
     name: Check Json files
     runs-on: ubuntu-22.04
     container:
@@ -38,4 +38,4 @@ jobs:
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - name: Run check_json.cr
-        run: ./bin/check_json.cr
+        run: crystal ./bin/check_json.cr
