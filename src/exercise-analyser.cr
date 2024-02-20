@@ -88,6 +88,55 @@ class ExerciseAnayzer
           end
         end
       end
+    when "reverse-string"
+      if anlyzation.any? { |x| x.options["type"] == "Call" && x.options["name"] == "reverse" }
+        @comments << Comments.new("crystal.reverse-string.reverse", Hash(String, String | Int32).new, "celebratory")
+      end
+    when "chess-game"
+      if anlyzation.none? { |x| x.options["name"] == "valid_square?" && x.options["type"] == "Call" && x.inside_method == "move_message" }
+        options = Hash(String, String | Int32){"concept" => "function", "item_1" => "Chess.move_message", "item_2" => "Chess.valid_square?"}
+        @comments << Comments.new("crystal.general.reuse", options, "actionable")
+      end
+      if anlyzation.none? { |x| x.options["name"] == "nickname" && x.options["type"] == "Call" && x.inside_method == "move_message" }
+        options = Hash(String, String | Int32){"concept" => "function", "item_1" => "Chess.move_message", "item_2" => "Chess.nickname"}
+        @comments << Comments.new("crystal.general.reuse", options, "actionable")
+      end
+      if anlyzation.none? { |x| x.options["name"] == "FILES" && x.options["type"] == "Call" && x.inside_method == "valid_square?" }
+        options = Hash(String, String | Int32){"concept" => "constant", "item_1" => "Chess.valid_square?", "item_2" => "Chess::FILES"}
+        @comments << Comments.new("crystal.general.reuse", options, "actionable")
+      end
+      if anlyzation.none? { |x| x.options["name"] == "RANKS" && x.options["type"] == "Call" && x.inside_method == "valid_square?" }
+        options = Hash(String, String | Int32){"concept" => "constant", "item_1" => "Chess.valid_square?", "item_2" => "Chess::RANKS"}
+        @comments << Comments.new("crystal.general.reuse", options, "actionable")
+      end
+    when "password-lock"
+      if anlyzation.none? { |x| x.options["name"] == "encrypt" && x.options["type"] == "Call" && x.inside_method == "unlock?" }
+        options = Hash(String, String | Int32){"concept" => "function", "item_1" => "PasswordLock#unlock?", "item_2" => "PasswordLock#encrypt"}
+        @comments << Comments.new("crystal.general.reuse", options, "actionable")
+      end
+    when "collatz-conjecture"
+      if anlyzation.any? { |x| x.options["type"] == "Call" && x.options["name"] == "%" }
+        @comments << Comments.new("crystal.collatz-conjecture.modulo", Hash(String, String | Int32).new, "informative")
+      end
+    when "library-of-luton"
+      if anlyzation.none? { |x| x.options["name"] == "first_letter" && x.options["type"] == "Call" && x.inside_method == "initials" }
+        options = Hash(String, String | Int32){"concept" => "function", "item_1" => "Library.initials", "item_2" => "Library.first_letter"}
+        @comments << Comments.new("crystal.general.reuse", options, "informative")
+      end
+      if anlyzation.none? { |x| x.options["name"] == "decrypt_character" && x.options["type"] == "Call" && x.inside_method == "decrypt_text" }
+        options = Hash(String, String | Int32){"concept" => "function", "item_1" => "Library.decrypt_text", "item_2" => "Library.decrypt_character"}
+        @comments << Comments.new("crystal.general.reuse", options, "actionable")
+      end
+    when "castle-dinner"
+      if anlyzation.none? { |x| x.options["name"] == "check_drink" && x.options["type"] == "Call" && x.inside_method == "replace_drink" }
+        options = Hash(String, String | Int32){"concept" => "function", "item_1" => "CastleDinner.replace_drink", "item_2" => "CastleDinner.check_drink?"}
+        @comments << Comments.new("crystal.general.reuse", options, "actionable")
+      end
+      if anlyzation.none? { |x| x.options["name"] == "||" && x.options["type"] == "Call" && x.inside_method == "replace_drink" }
+        @comments << Comments.new("crystal.castle-dinner.use_or", Hash(String, String | Int32).new, "actionable")
+      else
+        @comments << Comments.new("crystal.castle-dinner.uses_or", Hash(String, String | Int32).new, "celebratory")
+      end
     end
   end
 end

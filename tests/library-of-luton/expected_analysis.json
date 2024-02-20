@@ -1,0 +1,1 @@
+{"comments":[{"comment":"crystal.general.reuse","params":{"concept":"function","item_1":"Library.initials","item_2":"Library.first_letter"},"type":"informative"},{"comment":"crystal.general.reuse","params":{"concept":"function","item_1":"Library.decrypt_text","item_2":"Library.decrypt_character"},"type":"actionable"}]}

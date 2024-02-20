@@ -57,7 +57,6 @@ class Analyzer
     exericse_analyzer.exercise_tags
     @result += exericse_analyzer.comments
     exemplar_comment
-    todo_comment(path)
   end
 
   def exemplar_comment
@@ -67,21 +66,7 @@ class Analyzer
       end
     end
   end
-
-  def todo_comment(path)
-    file_content = File.read(path)
-    file_content.each_line.with_index do |line, idx|
-      p line
-      if line.includes?("# TODO:")
-        options = Hash(String, String | Int32){
-          "line_number" => idx,
-        }
-        @result << Comments.new("crystal.general.todo", options, "informative")
-        break
-      end
-    end
-  end
-
+  
   private def exemplar?(exemplar_path : String) : Bool
     representer1 = Representer.new
     representer1.parse_file(Path.new(ARGV[2]))

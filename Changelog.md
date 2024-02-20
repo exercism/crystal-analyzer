@@ -1,3 +1,13 @@
+# 1.2.0
+
+- 4 Custom comments for exercises
+- Several exercises recived comments about reusing functions/constants
+- Crystal 1.11 support
+- Upgraded ambea to 1.6.1
+- Upgraded representer to 1.3.0
+- The todo logic has been migrated to use Ambea logic instead of custom logic.
+- Add new Ci which compares the test files against the website copy repo.
+
 ## 1.1.2
 
 - Fix leap use-is-divisable_by comment

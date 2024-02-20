@@ -1,0 +1,7 @@
+{
+    "files": {
+        "solution": [
+            "src/reverse_string.cr"
+        ]
+    }
+}
