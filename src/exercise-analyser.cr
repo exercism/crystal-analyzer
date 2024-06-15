@@ -4,11 +4,10 @@ require "./visitor_analyzer"
 
 class ExerciseAnayzer
   getter exercise, anlyzation
-  property comments, concepts
+  property comments
 
   @comments = Array(Comments).new
   @anlyzation : Array(Types) = Array(Types).new
-  @concepts : Array(String) = Array(String).new
 
   def initialize(exercise : String, path : String)
     file_content = File.read(path)
@@ -18,7 +17,6 @@ class ExerciseAnayzer
       analyser = GeneralAnalyzer.new
       analyser.accept(ast)
       @anlyzation = analyser.types
-      @concepts = analyser.concepts # Adding the possibilty of marking an exercise as having a certain concept
     rescue
       p "Error parsing the file"
     end
