@@ -135,6 +135,25 @@ class ExerciseAnayzer
       else
         @comments << Comments.new("crystal.castle-dinner.uses_or", Hash(String, String | Int32).new, "celebratory")
       end
+    when "darts"
+      if anlyzation.any? { |x| x.options["type"] == "Call" && (x.options["name"] == "**" || x.options["name"] == "pow") }
+        @comments << Comments.new("crystal.darts.hypot", Hash(String, String | Int32).new, "actionable")
+      end
+      if anlyzation.any? { |x| x.options["type"] == "Call" && x.options["receiver"] == "hypot" }
+        @comments << Comments.new("crystal.darts.uses-hypot", Hash(String, String | Int32).new, "celebratory")
+      end
+    when "weighing-machine"
+      unless anlyzation.any? { |x| x.options["type"] == "Call" && x.argumments.any? { |x| x["name"].to_s.starts_with?("precision") } && x.inside_class == "WeighingMachine" }
+        @comments << Comments.new("crystal.weighing-machine.missing-getter", Hash(String, String | Int32).new, "essential")
+      end
+
+      unless anlyzation.any? { |x| x.options["type"] == "Call" && x.argumments.any? { |x| x["name"].to_s.starts_with?("metric") } && x.inside_class == "WeighingMachine" }
+        @comments << Comments.new("crystal.weighing-machine.missing-setter", Hash(String, String | Int32).new, "essential")
+      end
+
+      unless anlyzation.any? { |x| x.options["type"] == "Call" && x.argumments.any? { |x| x["name"].to_s.starts_with?("weight") } && x.inside_class == "WeighingMachine" }
+        @comments << Comments.new("crystal.weighing-machine.missing-property", Hash(String, String | Int32).new, "essential")
+      end
     end
   end
 end
