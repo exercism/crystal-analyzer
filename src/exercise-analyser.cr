@@ -144,15 +144,15 @@ class ExerciseAnayzer
       end
     when "weighing-machine"
       unless anlyzation.any? { |x| x.options["type"] == "Call" && x.argumments.any? { |x| x["name"].to_s.starts_with?("precision") } && x.inside_class == "WeighingMachine" }
-        @comments << Comments.new("crystal.weighing-machine.missing-getter", Hash(String, String | Int32).new, "essential")
+        @comments << Comments.new("crystal.weighing-machine.missing_method", Hash(String, String | Int32) {"method_name" => "getter"}, "essential")
       end
 
       unless anlyzation.any? { |x| x.options["type"] == "Call" && x.argumments.any? { |x| x["name"].to_s.starts_with?("metric") } && x.inside_class == "WeighingMachine" }
-        @comments << Comments.new("crystal.weighing-machine.missing-setter", Hash(String, String | Int32).new, "essential")
+        @comments << Comments.new("crystal.weighing-machine.missing_method", Hash(String, String | Int32) {"method_name" => "setter"}, "essential")
       end
 
       unless anlyzation.any? { |x| x.options["type"] == "Call" && x.argumments.any? { |x| x["name"].to_s.starts_with?("weight") } && x.inside_class == "WeighingMachine" }
-        @comments << Comments.new("crystal.weighing-machine.missing-property", Hash(String, String | Int32).new, "essential")
+        @comments << Comments.new("crystal.weighing-machine.missing_method", Hash(String, String | Int32) {"method_name" => "property"}, "essential")
       end
     end
   end
