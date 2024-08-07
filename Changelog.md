@@ -1,3 +1,9 @@
+# 1.3.0
+
+- Upgraded representer to 1.3.0
+- Crystal 1.13 support
+- Cleanup and refactor
+
 # 1.2.0
 
 - 4 Custom comments for exercises

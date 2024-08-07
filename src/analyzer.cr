@@ -7,9 +7,7 @@ class Analysis
   getter summery : String?
   property comments : Array(Comments)
 
-  def initialize(summery : String?, comments : Array(Comments))
-    @summery = summery
-    @comments = comments
+  def initialize(@comments : Array(Comments), @summery : String? = nil)
   end
 end
 
@@ -19,20 +17,11 @@ class Comments
   getter params : Hash(String, String | Int32)
   getter type : String
 
-  def initialize(comment : String, params : Hash(String, String | Int32), type : String)
-    @comment = comment
-    @params = params
-    @type = type
+  def initialize(@comment : String, @params : Hash(String, String | Int32), @type : String)
   end
 end
 
 class Analyzer
-  Types = {
-    "Error"      => "error",
-    "Warning"    => "warning",
-    "Convention" => "convention",
-  }
-
   @result : Array(Comments) = [] of Comments
 
   property result
@@ -90,5 +79,5 @@ if ARGV.size >= 4
   anylyser.analyze(ARGV[3], ARGV[2])
   result = anylyser.result
 
-  File.write(ARGV[1], Analysis.new(nil, result).to_json)
+  File.write(ARGV[1], Analysis.new(result).to_json)
 end
