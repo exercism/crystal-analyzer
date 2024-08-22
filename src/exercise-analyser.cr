@@ -4,11 +4,10 @@ require "./visitor_analyzer"
 
 class ExerciseAnayzer
   getter exercise, anlyzation
-  property comments, concepts
+  property comments
 
   @comments = Array(Comments).new
   @anlyzation : Array(Types) = Array(Types).new
-  @concepts : Array(String) = Array(String).new
 
   def initialize(exercise : String, path : String)
     file_content = File.read(path)
@@ -18,7 +17,6 @@ class ExerciseAnayzer
       analyser = GeneralAnalyzer.new
       analyser.accept(ast)
       @anlyzation = analyser.types
-      @concepts = analyser.concepts # Adding the possibilty of marking an exercise as having a certain concept
     rescue
       p "Error parsing the file"
     end
@@ -136,6 +134,25 @@ class ExerciseAnayzer
         @comments << Comments.new("crystal.castle-dinner.use_or", Hash(String, String | Int32).new, "actionable")
       else
         @comments << Comments.new("crystal.castle-dinner.uses_or", Hash(String, String | Int32).new, "celebratory")
+      end
+    when "darts"
+      if anlyzation.any? { |x| x.options["type"] == "Call" && (x.options["name"] == "**" || x.options["name"] == "pow") }
+        @comments << Comments.new("crystal.darts.hypot", Hash(String, String | Int32).new, "actionable")
+      end
+      if anlyzation.any? { |x| x.options["type"] == "Call" && x.options["receiver"] == "hypot" }
+        @comments << Comments.new("crystal.darts.uses_hypot", Hash(String, String | Int32).new, "celebratory")
+      end
+    when "weighing-machine"
+      unless anlyzation.any? { |x| x.options["type"] == "Call" && x.argumments.any? { |x| x["name"].to_s.starts_with?("precision") } && x.inside_class == "WeighingMachine" }
+        @comments << Comments.new("crystal.weighing-machine.missing_method", Hash(String, String | Int32) {"method_name" => "getter"}, "essential")
+      end
+
+      unless anlyzation.any? { |x| x.options["type"] == "Call" && x.argumments.any? { |x| x["name"].to_s.starts_with?("metric") } && x.inside_class == "WeighingMachine" }
+        @comments << Comments.new("crystal.weighing-machine.missing_method", Hash(String, String | Int32) {"method_name" => "setter"}, "essential")
+      end
+
+      unless anlyzation.any? { |x| x.options["type"] == "Call" && x.argumments.any? { |x| x["name"].to_s.starts_with?("weight") } && x.inside_class == "WeighingMachine" }
+        @comments << Comments.new("crystal.weighing-machine.missing_method", Hash(String, String | Int32) {"method_name" => "property"}, "essential")
       end
     end
   end
