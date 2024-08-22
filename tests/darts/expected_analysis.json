@@ -1,1 +1,1 @@
-{"comments":[{"comment":"crystal.ameba.warning","params":{"message":"Useless assignment to variable `value`","line_number":5},"type":"actionable"},{"comment":"crystal.darts.hypot","params":{},"type":"actionable"},{"comment":"crystal.darts.uses-hypot","params":{},"type":"celebratory"}]}
+{"comments":[{"comment":"crystal.ameba.warning","params":{"message":"Useless assignment to variable `value`","line_number":5},"type":"actionable"},{"comment":"crystal.darts.hypot","params":{},"type":"actionable"},{"comment":"crystal.darts.uses_hypot","params":{},"type":"celebratory"}]}
