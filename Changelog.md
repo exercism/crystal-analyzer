@@ -1,6 +1,11 @@
+# 1.3.1
+
+- Crystal 1.14 support
+- Upgraded ambea to 1.6.3
+
 # 1.3.0
 
-- Upgraded representer to 1.3.0
+- Upgraded representer to 1.3.2
 - Crystal 1.13 support
 - Cleanup and refactor
 
