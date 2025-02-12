@@ -1,7 +1,7 @@
 # 1.3.2
 
 - Crystal 1.15 support
-- Upgraded ambea to 1.6.4
+- Upgraded ameba to 1.6.4
 
 # 1.3.1
 
