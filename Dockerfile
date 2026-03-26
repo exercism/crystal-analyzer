@@ -1,4 +1,4 @@
-FROM crystallang/crystal:1.14.0-alpine as Builder
+FROM crystallang/crystal:1.19.1-alpine as Builder
 
 # install packages required to run the representer
 RUN apk add --no-cache bash coreutils yaml-dev musl-dev make
@@ -15,7 +15,7 @@ WORKDIR /lib/ameba
 
 RUN make clean && make
 
-FROM alpine:3.20
+FROM alpine:3.22
 
 RUN apk add --update --no-cache --force-overwrite pcre2-dev bash jq coreutils libgcc yaml libevent gc
 WORKDIR /opt/analyzer

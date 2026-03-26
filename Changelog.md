@@ -1,3 +1,9 @@
+# 1.3.2
+
+- Crystal 1.19 support
+- Upgraded ambea to 1.6.4
+- Update alpine to 3.22 from 3.20
+
 # 1.3.1
 
 - Crystal 1.14 support
