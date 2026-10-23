@@ -3,3 +3,6 @@ Lint/Formatting:
 
 Naming/BlockParameterName:
   Enabled: false # This rule has been heavily debated, thereby until it is resolved, it is disabled.
+
+Documentation/Admonition:
+  Enabled: true
