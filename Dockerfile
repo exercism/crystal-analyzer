@@ -1,4 +1,4 @@
-FROM crystallang/crystal:1.20.3-alpine AS Builder
+FROM crystallang/crystal:1.22.1-alpine AS builder
 
 # install packages required to run the representer
 RUN apk add --no-cache bash coreutils yaml-dev musl-dev make
@@ -21,7 +21,7 @@ RUN apk add --update --no-cache --force-overwrite pcre2-dev bash jq coreutils li
 WORKDIR /opt/analyzer
 
 COPY . .
-COPY --from=Builder /lib/ameba/bin/ameba bin/ameba
-COPY --from=Builder /bin/analyzer bin/analyzer
+COPY --from=builder /lib/ameba/bin/ameba bin/ameba
+COPY --from=builder /bin/analyzer bin/analyzer
 
 ENTRYPOINT ["/opt/analyzer/bin/run.sh"]
