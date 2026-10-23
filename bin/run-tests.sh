@@ -24,7 +24,7 @@ for test_dir in tests/*; do
 
     echo "${test_dir_name}: comparing analysis.json to expected_analysis.json"
 
-    if ! diff "${analysis_file_path}" "${expected_analysis_file_path}"; then
+    if ! diff <( jq '.comments |= sort' "${expected_analysis_file_path}" ) <( jq '.comments |= sort' "${analysis_file_path}" ); then
         exit_code=1
     fi
 done
