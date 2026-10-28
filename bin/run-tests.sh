@@ -29,4 +29,4 @@ for test_dir in tests/*; do
     fi
 done
 
-exit ${exit_code}
+exit "${exit_code}"
